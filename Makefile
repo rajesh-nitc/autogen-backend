@@ -6,6 +6,7 @@ help: ## Self-documenting help command
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
 
 run: ## Run the application locally
+	uv sync
 	uv run uvicorn src.main:app --host 0.0.0.0 --port 8000
 
 precommit: ## Run pre-commit checks

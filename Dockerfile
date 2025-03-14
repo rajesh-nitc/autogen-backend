@@ -1,13 +1,13 @@
 # Use a lightweight Python base image
-FROM python:3.12-slim AS builder
+FROM python:3.12-slim
 
 # Set environment variables for better behavior
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
-# Install uv (universal virtualenv manager)
-RUN pip install --no-cache-dir uv
+# Install uv
+RUN pip install uv
 
 # Set working directory
 WORKDIR /app

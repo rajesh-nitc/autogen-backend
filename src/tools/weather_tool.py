@@ -13,7 +13,10 @@ async def get_location_coordinates(
     client = HTTPClientSingleton.get_instance()
     response = await client.get(
         "/geo/1.0/direct",
-        params={"q": location, "appid": settings.OPENWEATHER_API_KEY},
+        params={
+            "q": location,
+            "appid": settings.OPENWEATHER_API_KEY.get_secret_value(),
+        },
     )
     response.raise_for_status()
     data = response.json()
@@ -33,7 +36,7 @@ async def get_weather_by_coordinates(
         params={
             "lat": lat,
             "lon": lon,
-            "appid": settings.OPENWEATHER_API_KEY,
+            "appid": settings.OPENWEATHER_API_KEY.get_secret_value(),
         },
     )
     response.raise_for_status()

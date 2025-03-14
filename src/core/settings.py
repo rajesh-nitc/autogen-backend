@@ -1,11 +1,11 @@
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    AZURE_OPENAI_API_KEY: str = Field(
+    AZURE_OPENAI_API_KEY: SecretStr = Field(
         ...,  # Required field (this means it must be provided through env)
         json_schema_extra={"env": "AZURE_OPENAI_API_KEY"},
         description="Azure OpenAI API key.",
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
         "You are a helpful assistant.",
         description="System instruction for the Model.",
     )
-    OPENWEATHER_API_KEY: str = Field(
+    OPENWEATHER_API_KEY: SecretStr = Field(
         ...,  # Required field (this means it must be provided through env)
         json_schema_extra={"env": "OPENWEATHER_API_KEY"},
         description="OpenWeather API key.",

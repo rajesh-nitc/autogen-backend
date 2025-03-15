@@ -41,4 +41,4 @@ async def get_weather_by_coordinates(
     )
     response.raise_for_status()
     data = response.json()
-    return data
+    return data.get("main")

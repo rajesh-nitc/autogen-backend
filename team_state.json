@@ -2,7 +2,7 @@
   "type": "TeamState",
   "version": "1.0.0",
   "agent_states": {
-    "group_chat_manager/21c2a958-dbc8-480f-851b-90fd4caec0e2": {
+    "group_chat_manager/6e1ad05f-040f-45fd-87f6-287d67634692": {
       "type": "RoundRobinManagerState",
       "version": "1.0.0",
       "message_thread": [
@@ -22,12 +22,12 @@
           "metadata": {},
           "content": [
             {
-              "id": "call_uNOH5GnldWIWIu2NWnf1SWqs",
+              "id": "call_aBIBxBZqWc21hyoQyDQHY14R",
               "arguments": "{\"lat\": 12.9716, \"lon\": 77.5946}",
               "name": "get_weather_by_coordinates"
             },
             {
-              "id": "call_K8mAc2cvkAkXVG9Zv8ndyvF9",
+              "id": "call_gNEhnOz6ieVmEhONzEydSc5W",
               "arguments": "{\"lat\": 19.076, \"lon\": 72.8777}",
               "name": "get_weather_by_coordinates"
             }
@@ -40,15 +40,15 @@
           "metadata": {},
           "content": [
             {
-              "content": "{'coord': {'lon': 77.59, 'lat': 12.97}, 'weather': [{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03d'}], 'base': 'stations', 'main': {'temp': 304.14, 'feels_like': 302.97, 'temp_min': 302.56, 'temp_max': 304.99, 'pressure': 1011, 'humidity': 31, 'sea_level': 1011, 'grnd_level': 915}, 'visibility': 8000, 'wind': {'speed': 3.6, 'deg': 80}, 'clouds': {'all': 50}, 'dt': 1741850397, 'sys': {'type': 1, 'id': 9205, 'country': 'IN', 'sunrise': 1741827512, 'sunset': 1741870796}, 'timezone': 19800, 'id': 1277333, 'name': 'Bengaluru', 'cod': 200}",
+              "content": "{'temp': 303.25, 'feels_like': 301.54, 'temp_min': 302.01, 'temp_max': 304.23, 'pressure': 1010, 'humidity': 22, 'sea_level': 1010, 'grnd_level': 914}",
               "name": "get_weather_by_coordinates",
-              "call_id": "call_uNOH5GnldWIWIu2NWnf1SWqs",
+              "call_id": "call_aBIBxBZqWc21hyoQyDQHY14R",
               "is_error": false
             },
             {
-              "content": "{'coord': {'lon': 72.8777, 'lat': 19.076}, 'weather': [{'id': 711, 'main': 'Smoke', 'description': 'smoke', 'icon': '50d'}], 'base': 'stations', 'main': {'temp': 307.15, 'feels_like': 308.58, 'temp_min': 304.1, 'temp_max': 307.15, 'pressure': 1010, 'humidity': 40, 'sea_level': 1010, 'grnd_level': 1008}, 'visibility': 2100, 'wind': {'speed': 4.12, 'deg': 210}, 'clouds': {'all': 0}, 'dt': 1741850702, 'sys': {'type': 1, 'id': 9052, 'country': 'IN', 'sunrise': 1741828718, 'sunset': 1741871852}, 'timezone': 19800, 'id': 8131499, 'name': 'Konkan Division', 'cod': 200}",
+              "content": "{'temp': 304.15, 'feels_like': 304.85, 'temp_min': 303.1, 'temp_max': 304.15, 'pressure': 1009, 'humidity': 45, 'sea_level': 1009, 'grnd_level': 1008}",
               "name": "get_weather_by_coordinates",
-              "call_id": "call_K8mAc2cvkAkXVG9Zv8ndyvF9",
+              "call_id": "call_gNEhnOz6ieVmEhONzEydSc5W",
               "is_error": false
             }
           ],
@@ -58,25 +58,25 @@
           "source": "assistant",
           "models_usage": null,
           "metadata": {},
-          "content": "{'coord': {'lon': 77.59, 'lat': 12.97}, 'weather': [{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03d'}], 'base': 'stations', 'main': {'temp': 304.14, 'feels_like': 302.97, 'temp_min': 302.56, 'temp_max': 304.99, 'pressure': 1011, 'humidity': 31, 'sea_level': 1011, 'grnd_level': 915}, 'visibility': 8000, 'wind': {'speed': 3.6, 'deg': 80}, 'clouds': {'all': 50}, 'dt': 1741850397, 'sys': {'type': 1, 'id': 9205, 'country': 'IN', 'sunrise': 1741827512, 'sunset': 1741870796}, 'timezone': 19800, 'id': 1277333, 'name': 'Bengaluru', 'cod': 200}\n{'coord': {'lon': 72.8777, 'lat': 19.076}, 'weather': [{'id': 711, 'main': 'Smoke', 'description': 'smoke', 'icon': '50d'}], 'base': 'stations', 'main': {'temp': 307.15, 'feels_like': 308.58, 'temp_min': 304.1, 'temp_max': 307.15, 'pressure': 1010, 'humidity': 40, 'sea_level': 1010, 'grnd_level': 1008}, 'visibility': 2100, 'wind': {'speed': 4.12, 'deg': 210}, 'clouds': {'all': 0}, 'dt': 1741850702, 'sys': {'type': 1, 'id': 9052, 'country': 'IN', 'sunrise': 1741828718, 'sunset': 1741871852}, 'timezone': 19800, 'id': 8131499, 'name': 'Konkan Division', 'cod': 200}",
+          "content": "{'temp': 303.25, 'feels_like': 301.54, 'temp_min': 302.01, 'temp_max': 304.23, 'pressure': 1010, 'humidity': 22, 'sea_level': 1010, 'grnd_level': 914}\n{'temp': 304.15, 'feels_like': 304.85, 'temp_min': 303.1, 'temp_max': 304.15, 'pressure': 1009, 'humidity': 45, 'sea_level': 1009, 'grnd_level': 1008}",
           "type": "ToolCallSummaryMessage"
         },
         {
           "source": "assistant",
           "models_usage": {
-            "prompt_tokens": 688,
-            "completion_tokens": 110
+            "prompt_tokens": 340,
+            "completion_tokens": 113
           },
           "metadata": {},
-          "content": "The answer to \\(1 + 1\\) is \\(2\\).\n\nAs for the weather:\n\n### Bengaluru\n- **Temperature:** 31.0 \u00b0C\n- **Conditions:** Scattered clouds\n- **Humidity:** 31%\n- **Wind Speed:** 3.6 m/s\n\n### Mumbai\n- **Temperature:** 34.0 \u00b0C\n- **Conditions:** Smoke\n- **Humidity:** 40%\n- **Wind Speed:** 4.12 m/s\n\nLet me know if you need more information!",
+          "content": "1 + 1 equals 2.\n\nAs for the weather:\n\n- **Bengaluru**: The current temperature is approximately 30.1\u00b0C (303.25 K) with a feels-like temperature of 28.4\u00b0C. The air pressure is 1010 hPa with a humidity of 22%.\n\n- **Mumbai**: The current temperature is approximately 31\u00b0C (304.15 K) with a feels-like temperature of 31.7\u00b0C. The air pressure is 1009 hPa with a humidity of 45%.",
           "type": "TextMessage"
         }
       ],
       "current_turn": 0,
       "next_speaker_index": 0
     },
-    "collect_output_messages/21c2a958-dbc8-480f-851b-90fd4caec0e2": {},
-    "assistant/21c2a958-dbc8-480f-851b-90fd4caec0e2": {
+    "collect_output_messages/6e1ad05f-040f-45fd-87f6-287d67634692": {},
+    "assistant/6e1ad05f-040f-45fd-87f6-287d67634692": {
       "type": "ChatAgentContainerState",
       "version": "1.0.0",
       "agent_state": {
@@ -92,12 +92,12 @@
             {
               "content": [
                 {
-                  "id": "call_uNOH5GnldWIWIu2NWnf1SWqs",
+                  "id": "call_aBIBxBZqWc21hyoQyDQHY14R",
                   "arguments": "{\"lat\": 12.9716, \"lon\": 77.5946}",
                   "name": "get_weather_by_coordinates"
                 },
                 {
-                  "id": "call_K8mAc2cvkAkXVG9Zv8ndyvF9",
+                  "id": "call_gNEhnOz6ieVmEhONzEydSc5W",
                   "arguments": "{\"lat\": 19.076, \"lon\": 72.8777}",
                   "name": "get_weather_by_coordinates"
                 }
@@ -109,22 +109,22 @@
             {
               "content": [
                 {
-                  "content": "{'coord': {'lon': 77.59, 'lat': 12.97}, 'weather': [{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03d'}], 'base': 'stations', 'main': {'temp': 304.14, 'feels_like': 302.97, 'temp_min': 302.56, 'temp_max': 304.99, 'pressure': 1011, 'humidity': 31, 'sea_level': 1011, 'grnd_level': 915}, 'visibility': 8000, 'wind': {'speed': 3.6, 'deg': 80}, 'clouds': {'all': 50}, 'dt': 1741850397, 'sys': {'type': 1, 'id': 9205, 'country': 'IN', 'sunrise': 1741827512, 'sunset': 1741870796}, 'timezone': 19800, 'id': 1277333, 'name': 'Bengaluru', 'cod': 200}",
+                  "content": "{'temp': 303.25, 'feels_like': 301.54, 'temp_min': 302.01, 'temp_max': 304.23, 'pressure': 1010, 'humidity': 22, 'sea_level': 1010, 'grnd_level': 914}",
                   "name": "get_weather_by_coordinates",
-                  "call_id": "call_uNOH5GnldWIWIu2NWnf1SWqs",
+                  "call_id": "call_aBIBxBZqWc21hyoQyDQHY14R",
                   "is_error": false
                 },
                 {
-                  "content": "{'coord': {'lon': 72.8777, 'lat': 19.076}, 'weather': [{'id': 711, 'main': 'Smoke', 'description': 'smoke', 'icon': '50d'}], 'base': 'stations', 'main': {'temp': 307.15, 'feels_like': 308.58, 'temp_min': 304.1, 'temp_max': 307.15, 'pressure': 1010, 'humidity': 40, 'sea_level': 1010, 'grnd_level': 1008}, 'visibility': 2100, 'wind': {'speed': 4.12, 'deg': 210}, 'clouds': {'all': 0}, 'dt': 1741850702, 'sys': {'type': 1, 'id': 9052, 'country': 'IN', 'sunrise': 1741828718, 'sunset': 1741871852}, 'timezone': 19800, 'id': 8131499, 'name': 'Konkan Division', 'cod': 200}",
+                  "content": "{'temp': 304.15, 'feels_like': 304.85, 'temp_min': 303.1, 'temp_max': 304.15, 'pressure': 1009, 'humidity': 45, 'sea_level': 1009, 'grnd_level': 1008}",
                   "name": "get_weather_by_coordinates",
-                  "call_id": "call_K8mAc2cvkAkXVG9Zv8ndyvF9",
+                  "call_id": "call_gNEhnOz6ieVmEhONzEydSc5W",
                   "is_error": false
                 }
               ],
               "type": "FunctionExecutionResultMessage"
             },
             {
-              "content": "The answer to \\(1 + 1\\) is \\(2\\).\n\nAs for the weather:\n\n### Bengaluru\n- **Temperature:** 31.0 \u00b0C\n- **Conditions:** Scattered clouds\n- **Humidity:** 31%\n- **Wind Speed:** 3.6 m/s\n\n### Mumbai\n- **Temperature:** 34.0 \u00b0C\n- **Conditions:** Smoke\n- **Humidity:** 40%\n- **Wind Speed:** 4.12 m/s\n\nLet me know if you need more information!",
+              "content": "1 + 1 equals 2.\n\nAs for the weather:\n\n- **Bengaluru**: The current temperature is approximately 30.1\u00b0C (303.25 K) with a feels-like temperature of 28.4\u00b0C. The air pressure is 1010 hPa with a humidity of 22%.\n\n- **Mumbai**: The current temperature is approximately 31\u00b0C (304.15 K) with a feels-like temperature of 31.7\u00b0C. The air pressure is 1009 hPa with a humidity of 45%.",
               "thought": null,
               "source": "assistant",
               "type": "AssistantMessage"
@@ -135,5 +135,5 @@
       "message_buffer": []
     }
   },
-  "team_id": "21c2a958-dbc8-480f-851b-90fd4caec0e2"
+  "team_id": "6e1ad05f-040f-45fd-87f6-287d67634692"
 }

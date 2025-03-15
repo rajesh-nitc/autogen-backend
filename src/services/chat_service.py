@@ -23,10 +23,13 @@ async def handle_chat(websocket: WebSocket, request: TextMessage):
 
         async for message in stream:
             if isinstance(message, TaskResult):
-                logger.info(f"===== {message} =====")
+                logger.info(message)
+                await websocket.send_json(message.messages[-1].model_dump())
                 continue
-            await websocket.send_json(message.model_dump())
-            history.append(message.model_dump())
+            else:
+                # Uncomment below to send intermediate messages
+                # await websocket.send_json(message.model_dump())
+                history.append(message.model_dump())
 
         # Save team state to file
         async with aiofiles.open(state_path, "w") as file:

@@ -15,7 +15,7 @@ class Settings(BaseSettings):
         description="Latest GA API release.",
     )
     AZURE_OPENAI_ENDPOINT: str = Field(
-        "https://autogen-backend.openai.azure.com/",
+        "https://autogen-backend-01.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     ENV: Literal["local", "dev", "npr", "prd"] = Field(

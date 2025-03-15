@@ -18,7 +18,7 @@ docker: ## Run in docker (Add Openai API key, OpenWeather API key and update oth
 	sudo docker run -d -p 8000:8000 \
 		-e AZURE_OPENAI_API_KEY="" \
 		-e AZURE_OPENAI_API_VERSION="2024-10-21" \
-		-e AZURE_OPENAI_ENDPOINT="https://autogen-backend.openai.azure.com/" \
+		-e AZURE_OPENAI_ENDPOINT="https://autogen-backend-01.openai.azure.com/" \
         -e ENV="local" \
 		-e HTTP_CLIENT_BASE_URL="https://api.openweathermap.org" \
         -e LLM_MODEL="gpt-4o-mini" \

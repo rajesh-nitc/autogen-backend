@@ -1,7 +1,7 @@
 [project]
 name = "autogen-backend"
 version = "0.1.0"
-description = "Add your description here"
+description = "autogen-backend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -12,12 +12,10 @@ dependencies = [
     "pydantic-settings>=2.8.1",
     "uvicorn[standard]>=0.34.0",
 ]
-
 [dependency-groups]
 dev = [
     "pre-commit>=4.1.0",
 ]
-
 [tool.ruff.lint]
 select = [
     # pycodestyle

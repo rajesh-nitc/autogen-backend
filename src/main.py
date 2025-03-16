@@ -22,4 +22,4 @@ app = FastAPI(
 setup_cors(app)
 app.include_router(router)
 
-logger.info(f"Running in {settings.ENV.capitalize()} mode.")
+logger.info(f"Loaded application settings: {settings.model_dump()}")

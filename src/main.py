@@ -11,6 +11,7 @@ from src.events.lifespan import lifespan
 setup_logging()
 logger = logging.getLogger(__name__)
 
+
 app = FastAPI(
     title="autogen-backend",
     description="autogen-backend",

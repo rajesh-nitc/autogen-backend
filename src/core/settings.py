@@ -4,40 +4,51 @@ from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings
 
 
-class Settings(BaseSettings):
-    AZURE_OPENAI_API_KEY: SecretStr = Field(
+class AzureOpenAISettings(BaseSettings):
+    API_KEY: SecretStr = Field(
         ...,  # Required field (this means it must be provided through env)
-        json_schema_extra={"env": "AZURE_OPENAI_API_KEY"},
+        alias="AZURE_OPENAI_API_KEY",
         description="Azure OpenAI API key.",
     )
-    AZURE_OPENAI_API_VERSION: str = Field(
+    API_VERSION: str = Field(
         "2024-10-21",
         description="Latest GA API release.",
     )
-    AZURE_OPENAI_ENDPOINT: str = Field(
+    ENDPOINT: str = Field(
         "https://autogen-backend-01.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
+
+
+class LLMSettings(BaseSettings):
+    MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
+        "gpt-4o-mini", description="The foundation model to use."
+    )
+
+
+class WeatherSettings(BaseSettings):
+    BASE_URL: str = Field(
+        "https://api.openweathermap.org", description="OpenWeather API base URL"
+    )
+    API_KEY: SecretStr = Field(
+        ...,  # Required field
+        alias="OPENWEATHER_API_KEY",
+        description="OpenWeather API key.",
+    )
+    TIMEOUT: float = Field(10.0, description="Timeout for Weather API requests")
+
+
+class APIsSettings(BaseSettings):
+    WEATHER: WeatherSettings = WeatherSettings()  # type: ignore
+
+
+class Settings(BaseSettings):
+    APIS: APIsSettings = APIsSettings()
+    AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
     ENV: Literal["local", "dev", "npr", "prd"] = Field(
         "local", description="Application environment."
     )
-    HTTP_CLIENT_BASE_URL: str = Field(
-        "https://api.openweathermap.org", description="OpenWeather API base url"
-    )
-    LLM_MODEL: Literal[
-        "gpt-4",
-        "gpt-4o",
-        "gpt-4o-mini",
-    ] = Field("gpt-4o-mini", description="The foundation model to use.")
-    LLM_SYSTEM_INSTRUCTION: str = Field(
-        "You are a helpful assistant.",
-        description="System instruction for the Model.",
-    )
-    OPENWEATHER_API_KEY: SecretStr = Field(
-        ...,  # Required field (this means it must be provided through env)
-        json_schema_extra={"env": "OPENWEATHER_API_KEY"},
-        description="OpenWeather API key.",
-    )
+    LLM: LLMSettings = LLMSettings()  # type: ignore
 
 
 settings = Settings()  # type: ignore

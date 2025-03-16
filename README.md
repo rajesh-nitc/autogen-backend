@@ -29,10 +29,10 @@ echo 'export OPENWEATHER_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 ### Run
 
 ```
-# Run Locally
+# Run
 make run
 
-# Run Locally (With Docker) - update variables in Makefile
+# Run in Docker - Add AZURE_OPENAI_API_KEY, OPENWEATHER_API_KEY in Makefile
 make docker
 
 ```

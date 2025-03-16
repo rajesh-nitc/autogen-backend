@@ -18,9 +18,6 @@ class AzureOpenAISettings(BaseSettings):
         "https://autogen-backend-01.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
-
-
-class LLMSettings(BaseSettings):
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
         "gpt-4o-mini", description="The foundation model to use."
     )
@@ -48,7 +45,6 @@ class Settings(BaseSettings):
     ENV: Literal["local", "dev", "npr", "prd"] = Field(
         "local", description="Application environment."
     )
-    LLM: LLMSettings = LLMSettings()  # type: ignore
 
 
 settings = Settings()  # type: ignore

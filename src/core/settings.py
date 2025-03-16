@@ -19,7 +19,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Azure OpenAI endpoint.",
     )
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
-        "gpt-4o-mini", description="The foundation model to use."
+        "gpt-4o-mini", description="LLM model."
     )
 
 

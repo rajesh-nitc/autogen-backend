@@ -15,7 +15,6 @@ state_path = "team_state.json"
 
 # Team with one agent
 async def get_single_agent_team() -> RoundRobinGroupChat:
-
     assistant = AssistantAgent(
         name="assistant",
         model_client=get_azure_openai_chat_completion_model_client(),
@@ -34,7 +33,7 @@ async def get_single_agent_team() -> RoundRobinGroupChat:
     # Load state from file.
     if not os.path.exists(state_path):
         return team
-    async with aiofiles.open(state_path, "r") as file:
+    async with aiofiles.open(state_path) as file:
         state = json.loads(await file.read())
     await team.load_state(state)
     return team

@@ -21,7 +21,9 @@ async def get_chat_response(websocket: WebSocket):
         logger.info("Client disconnected")
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
-        try:
+        from contextlib import suppress
+
+        with suppress(Exception):
             await websocket.send_json(
                 {
                     "type": "error",
@@ -29,5 +31,3 @@ async def get_chat_response(websocket: WebSocket):
                     "source": "system",
                 }
             )
-        except Exception:
-            pass

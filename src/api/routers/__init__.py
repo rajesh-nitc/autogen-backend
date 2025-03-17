@@ -1,3 +1,5 @@
+"""Initializes the FastAPI router."""
+
 from fastapi import APIRouter
 
 from src.api.routers import chat, health

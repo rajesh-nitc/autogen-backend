@@ -10,6 +10,7 @@ async def get_location_coordinates(
         "Location e.g. Paris,FR; New York,NY,US. Use ISO 3166-1 alpha-2 country codes",
     ],
 ) -> Annotated[dict[str, float], "Returns latitude (lat) and longitude (lon)"]:
+    """Get location coordinates."""
     weather_client = HTTPClientSingleton.get_instance(
         base_url=settings.APIS.WEATHER.BASE_URL, timeout=settings.APIS.WEATHER.TIMEOUT
     )
@@ -31,7 +32,8 @@ async def get_location_coordinates(
 
 async def get_weather_by_coordinates(
     lat: Annotated[float, "Latitude"], lon: Annotated[float, "Longitude"]
-) -> Annotated[Any, "Returns weather info"]:
+) -> Annotated[Any, "Returns weather info"]:  # noqa: ANN401
+    """Get weather information by coordinates."""
     weather_client = HTTPClientSingleton.get_instance(
         base_url=settings.APIS.WEATHER.BASE_URL, timeout=settings.APIS.WEATHER.TIMEOUT
     )

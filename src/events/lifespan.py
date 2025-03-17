@@ -10,7 +10,11 @@ logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI):  # noqa: ANN201
+    """Application lifespan context manager.
+
+    :param app: FastAPI application
+    """
     # Application startup tasks
     # Initialize a client for each API using its base URL
     HTTPClientSingleton.get_instance(base_url=settings.APIS.WEATHER.BASE_URL)

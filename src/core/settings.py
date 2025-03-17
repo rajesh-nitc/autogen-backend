@@ -5,6 +5,8 @@ from pydantic_settings import BaseSettings
 
 
 class AzureOpenAISettings(BaseSettings):
+    """Azure OpenAI settings."""
+
     API_KEY: SecretStr = Field(
         ...,  # Required field (this means it must be provided through env)
         alias="AZURE_OPENAI_API_KEY",
@@ -24,6 +26,8 @@ class AzureOpenAISettings(BaseSettings):
 
 
 class WeatherSettings(BaseSettings):
+    """Weather API settings."""
+
     BASE_URL: str = Field(
         "https://api.openweathermap.org", description="OpenWeather API base URL"
     )
@@ -36,10 +40,14 @@ class WeatherSettings(BaseSettings):
 
 
 class APIsSettings(BaseSettings):
+    """APIs settings."""
+
     WEATHER: WeatherSettings = WeatherSettings()  # type: ignore
 
 
 class Settings(BaseSettings):
+    """Application settings."""
+
     APIS: APIsSettings = APIsSettings()
     AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
     ENV: Literal["local", "dev", "npr", "prd"] = Field(

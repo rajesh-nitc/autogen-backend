@@ -13,8 +13,11 @@ from src.utils.model_client import get_azure_openai_chat_completion_model_client
 state_path = "team_state.json"
 
 
-# Team with one agent
 async def get_single_agent_team() -> RoundRobinGroupChat:
+    """Get a team with a single agent.
+
+    :return: RoundRobinGroupChat
+    """
     assistant = AssistantAgent(
         name="assistant",
         model_client=get_azure_openai_chat_completion_model_client(),

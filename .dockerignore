@@ -2,6 +2,7 @@
 .git/
 .gitattributes
 .gitignore
+.mypy_cache/
 .ruff_cache/
 .pre-commit-config.yaml
 .pytest_cache/

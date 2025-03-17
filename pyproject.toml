@@ -18,16 +18,27 @@ dev = [
 ]
 [tool.ruff.lint]
 select = [
-    # pycodestyle
-    "E",
-    # Pyflakes
-    "F",
-    # pyupgrade
-    "UP",
-    # flake8-bugbear
-    "B",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "I",    # isort
+    "A",    # flake8-builtins (avoid shadowing built-ins)
+    "C4",   # flake8-comprehensions (optimize list comprehensions)
+    "T20",  # flake8-print (avoid print statements)
+    "D",    # flake8-docstrings (enforce docstring standards)
+    "N",    # pep8-naming (enforce consistent naming)
+    "TCH",  # flake8-type-checking (ensure type annotations)
+    "ANN",  # flake8-annotations (ensure consistent type annotations)
+    "PL",   # Pylint (catch design/code smells)
+    "TRY",  # tryceratops (improve exception handling)
+    "ARG",  # flake8-unused-arguments (catch unused arguments)
+]
+
+ignore = [
+    "D100",  # Ignore missing docstring in public module
+    "D203",  # Ignore blank line before class conflicts
+    "D213",  # Ignore multi-line summary position conflicts
+    "D401",  # Ignore first line of docstring should be in imperative mood
 ]

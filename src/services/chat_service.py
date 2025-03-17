@@ -15,7 +15,12 @@ state_path = "team_state.json"
 history_path = "team_history.json"
 
 
-async def handle_chat(websocket: WebSocket, request: TextMessage):
+async def handle_chat(websocket: WebSocket, request: TextMessage) -> None:
+    """Handle chat messages.
+
+    :param websocket: WebSocket
+    :param request: TextMessage
+    """
     try:
         team = await get_single_agent_team()
         history = await get_history()
@@ -47,5 +52,5 @@ async def handle_chat(websocket: WebSocket, request: TextMessage):
             "content": f"Error: {str(e)}",
             "source": "system",
         }
-        logger.error(error_message)
+        logger.exception("Error handling chat message")
         await websocket.send_json(error_message)

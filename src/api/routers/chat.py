@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 @router.websocket("/chat")
-async def get_chat_response(websocket: WebSocket):
+async def get_chat_response(websocket: WebSocket) -> None:
+    """WebSocket endpoint for chat."""
     await websocket.accept()
     try:
         while True:
@@ -20,7 +21,7 @@ async def get_chat_response(websocket: WebSocket):
     except WebSocketDisconnect:
         logger.info("Client disconnected")
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
+        logger.exception("Error handling request")
         from contextlib import suppress
 
         with suppress(Exception):

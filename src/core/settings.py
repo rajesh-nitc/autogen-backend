@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings
@@ -50,9 +50,19 @@ class Settings(BaseSettings):
 
     APIS: APIsSettings = APIsSettings()
     AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
-    ENV: Literal["local", "dev", "npr", "prd"] = Field(
-        "local", description="Application environment."
+    ENV: Literal["dev", "npr", "prd"] = Field(
+        "dev", description="Application environment."
     )
+
+    def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
+        """Initialize settings and apply environment-specific overrides."""
+        super().__init__(**kwargs)
+
+        if self.ENV == "npr":
+            self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-npr.openai.azure.com/"
+
+        elif self.ENV == "prd":
+            self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-prd.openai.azure.com/"
 
 
 settings = Settings()  # type: ignore

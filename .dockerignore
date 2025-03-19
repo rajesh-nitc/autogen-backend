@@ -9,6 +9,8 @@
 .venv/
 .vscode/
 **/__pycache__/
+alembic.ini
+alembic/
 Dockerfile
 Makefile
 README.md

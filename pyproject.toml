@@ -5,11 +5,16 @@ description = "autogen-backend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.15.1",
+    "asyncpg>=0.30.0",
     "autogen-agentchat>=0.4.8.2",
     "autogen-ext[azure,openai]>=0.4.8.2",
     "fastapi>=0.115.11",
     "httpx>=0.28.1",
+    "psycopg>=3.2.6",
+    "psycopg2-binary>=2.9.10",
     "pydantic-settings>=2.8.1",
+    "sqlmodel>=0.0.24",
     "uvicorn[standard]>=0.34.0",
 ]
 [dependency-groups]

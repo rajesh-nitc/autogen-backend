@@ -4,7 +4,9 @@ FROM python:3.12-slim
 # Set environment variables for better behavior
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    DOCKERIZED=1
+
 
 # Install uv
 RUN pip install uv
@@ -21,9 +23,8 @@ RUN uv sync --frozen
 # Copy the rest of the application
 COPY . .
 
-# So that appuser can create team_history.json and team_state.json
-RUN useradd -m appuser && \
-    chown -R appuser:appuser /app
+# Create appuser
+RUN useradd -m appuser
 
 # Switch to the non-root user
 USER appuser

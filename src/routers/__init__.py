@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from src.api.routers import chat, health
+from src.routers import chat, health
 
 router = APIRouter()
 

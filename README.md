@@ -17,34 +17,42 @@ This API uses Autogen framework
 echo 'export AZURE_OPENAI_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 ```
 
-2. **OpenWeather Authentication**:
+2. **PostgresSQL Authentication**:
+
+```
+echo 'export POSTGRES_PASSWORD=YOUR_PASSWORD_HERE' >> ~/.zshrc
+```
+
+3. **OpenWeather Authentication**:
 
 ```
 echo 'export OPENWEATHER_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 ```
 
-3. **Application Settings**: Update `src/core/settings.py`
-
-
 ### Run
 
 ```
-# Run
+# Run db
+make db
+
+# Run app
 make run
 
-# Run in Docker - Add AZURE_OPENAI_API_KEY, OPENWEATHER_API_KEY in Makefile
-make docker
+# Run app in Docker
+make run_docker
 
 ```
 
 ### Test with Postman
 
 URL:
+
 ```
-ws://localhost:8000/ws/chat
+ws://localhost:8000/ws/chat/session_id_foo
 ```
 
 Message:
+
 ```
 {
     "content": "what is 1+1 and how is the weather in bengaluru and mumbai?",

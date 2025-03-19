@@ -1,3 +1,4 @@
+import os
 from typing import Any, Literal
 
 from pydantic import Field, SecretStr
@@ -17,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-01.openai.azure.com/",
+        "https://autogen-backend-dev.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
@@ -45,11 +46,35 @@ class APIsSettings(BaseSettings):
     WEATHER: WeatherSettings = WeatherSettings()  # type: ignore
 
 
+class DatabaseSettings(BaseSettings):
+    """Database settings."""
+
+    POSTGRES_HOST: str = Field(
+        "localhost" if not bool(int(os.getenv("DOCKERIZED", "0"))) else "autogen-db",
+        description="Database host",
+    )
+    POSTGRES_PORT: int = Field(5432, description="Database port")
+    POSTGRES_USER: str = Field("chatuser", description="Database user")
+    POSTGRES_PASSWORD: SecretStr = Field(..., description="Database password")
+    POSTGRES_DB: str = Field("chatdb", description="Database name")
+
+    @property
+    def postgres_url(self) -> str:
+        """Database connection URL."""
+        user = self.POSTGRES_USER
+        password = self.POSTGRES_PASSWORD.get_secret_value()
+        host = self.POSTGRES_HOST
+        port = self.POSTGRES_PORT
+        db = self.POSTGRES_DB
+        return f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"
+
+
 class Settings(BaseSettings):
     """Application settings."""
 
     APIS: APIsSettings = APIsSettings()
     AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
+    DATABASE: DatabaseSettings = DatabaseSettings()  # type: ignore
     ENV: Literal["dev", "npr", "prd"] = Field(
         "dev", description="Application environment."
     )

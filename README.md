@@ -48,14 +48,14 @@ make run_docker
 URL:
 
 ```
-ws://localhost:8000/ws/chat/session_id_foo
+ws://localhost:8000/ws/chat/sessionidfoo
 ```
 
 Message:
 
 ```
 {
-    "content": "what is 1+1 and how is the weather in bengaluru and mumbai?",
+    "content": "how is the weather in bengaluru and mumbai?",
     "source": "user"
 }
 

@@ -46,7 +46,7 @@ class RunService:
 
     async def update_run_with_team_state(self, run: Run, team_state: dict) -> None:
         """Save team state for future reference."""
-        run.team_state = team_state  # type: ignore
+        run.team_state = team_state
         await self.db_session.commit()
 
     async def get_team_state(self, user_id: str) -> dict:
@@ -61,4 +61,4 @@ class RunService:
 
         team_state = result.scalars().first() or {}
 
-        return team_state  # type: ignore
+        return team_state

@@ -32,7 +32,6 @@ async def handle_chat(
             if isinstance(message, TaskResult):
                 if message.stop_reason is None:
                     continue
-                logger.info(message)
                 await run_service.update_run_with_result(
                     new_run, message.messages[-1].model_dump()
                 )

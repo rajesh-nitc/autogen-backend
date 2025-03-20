@@ -25,6 +25,7 @@ run_docker: ## Run app in docker
 	docker build -t $(APP_NAME) .
 	docker run -d -p 8000:8000 \
 	--network=autogen-network \
+	-e RUN_DOCKER=1 \
 	--env-file <(env | grep -E 'AZURE_OPENAI_API_KEY|POSTGRES_PASSWORD|OPENWEATHER_API_KEY') \
     --name $(APP_NAME) \
     $(APP_NAME)

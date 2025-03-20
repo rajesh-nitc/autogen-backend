@@ -18,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-dev.openai.azure.com/",
+        "https://autogen-backend-local.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
@@ -50,7 +50,7 @@ class DatabaseSettings(BaseSettings):
     """Database settings."""
 
     POSTGRES_HOST: str = Field(
-        "localhost" if not bool(int(os.getenv("DOCKERIZED", "0"))) else "autogen-db",
+        "autogen-db" if os.getenv("RUN_DOCKER") else "localhost",
         description="Database host",
     )
     POSTGRES_PORT: int = Field(5432, description="Database port")
@@ -75,17 +75,19 @@ class Settings(BaseSettings):
     APIS: APIsSettings = APIsSettings()
     AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
     DATABASE: DatabaseSettings = DatabaseSettings()  # type: ignore
-    ENV: Literal["dev", "npr", "prd"] = Field(
-        "dev", description="Application environment."
+    ENV: Literal["local", "dev", "npr", "prd"] = Field(
+        "local", description="Application environment."
     )
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize settings and apply environment-specific overrides."""
         super().__init__(**kwargs)
 
+        # Sample environment-specific overrides
+        if self.ENV == "dev":
+            self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-dev.openai.azure.com/"
         if self.ENV == "npr":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-npr.openai.azure.com/"
-
         elif self.ENV == "prd":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-prd.openai.azure.com/"
 

@@ -1,3 +1,4 @@
+import json
 import logging
 
 from autogen_agentchat.messages import TextMessage
@@ -26,18 +27,26 @@ async def get_chat_response(
         while True:
             try:
                 data = await websocket.receive_json()
-                request = TextMessage.model_validate(data)
-                await handle_chat(session_id, websocket, request, db_session, user_id)
-
-            except Exception as e:
-                logger.exception("Error handling request")
+            except json.JSONDecodeError:
+                logger.warning("Invalid input: expected valid JSON.")
                 await websocket.send_json(
                     {
                         "type": "error",
-                        "content": f"Unexpected error: {str(e)}",
+                        "content": "Invalid input: expected valid JSON.",
                         "source": "system",
                     }
                 )
+                continue
 
-    except WebSocketDisconnect:
+            try:
+                request = TextMessage.model_validate(data)
+                await handle_chat(session_id, websocket, request, db_session, user_id)
+            except WebSocketDisconnect as e:
+                logger.info(f"WebSocket disconnected Inner: {str(e)}")
+                break
+
+    except WebSocketDisconnect as e:
+        logger.info(f"WebSocket disconnected Outer: {str(e)}")
         await ws_manager.disconnect(session_id)
+    except Exception:
+        logger.exception("Unexpected error in WebSocket handling")

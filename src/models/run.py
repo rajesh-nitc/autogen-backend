@@ -23,19 +23,19 @@ class Run(SQLModel, table=True):
         sa_column=Column(DateTime(timezone=True), onupdate=func.now()),  # type: ignore
     )
 
-    # Store session_id
+    # Session ID sent by client
     session_id: str | None = Field(
         default=None,
         sa_column=Column(String, nullable=True),  # type: ignore
     )
 
-    # Store user task
+    # User task
     task: dict | None = Field(
         default=None,
         sa_column=Column(JSON, nullable=True),  # type: ignore
     )
 
-    # Store TaskResult
+    # Task result
     task_result: dict | None = Field(
         default=None,
         sa_column=Column(JSON, nullable=True),  # type: ignore
@@ -47,7 +47,7 @@ class Run(SQLModel, table=True):
         sa_column=Column(JSON, nullable=True),  # type: ignore
     )
 
-    # Store messages
+    # Messages including intermediate messages
     messages: list[dict] | None = Field(
         default_factory=list,
         sa_column=Column(JSON, nullable=True),  # type: ignore

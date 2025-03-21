@@ -45,12 +45,12 @@ class RunService:
         await self.db_session.commit()
 
     async def update_run_with_team_state(self, run: Run, team_state: dict) -> None:
-        """Save team state for future reference."""
+        """Save team state."""
         run.team_state = team_state
         await self.db_session.commit()
 
     async def get_team_state(self, user_id: str) -> dict:
-        """Fetch the team state from the previous run for a user."""
+        """Fetch the team state from the most recent run for a user."""
         result = await self.db_session.execute(
             select(Run.team_state)  # type: ignore
             .where(Run.user_id == user_id)
@@ -60,5 +60,4 @@ class RunService:
         )
 
         team_state = result.scalars().first() or {}
-
         return team_state

@@ -5,7 +5,10 @@ from sqlmodel import Column, Field, SQLModel
 
 
 class Run(SQLModel, table=True):
-    """Represents a single execution run within a session."""
+    """Represents a single execution run i.e.
+
+    User sends a message -> handle_chat() processes the message -> Returns a response.
+    """
 
     id: int | None = Field(
         default=None,

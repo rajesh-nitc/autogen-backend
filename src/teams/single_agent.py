@@ -1,5 +1,5 @@
 from autogen_agentchat.agents import AssistantAgent
-from autogen_agentchat.conditions import TextMessageTermination
+from autogen_agentchat.conditions import MaxMessageTermination, TextMessageTermination
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_core.model_context import BufferedChatCompletionContext
 
@@ -23,7 +23,11 @@ async def get_single_agent_team() -> RoundRobinGroupChat:
         ),
     )
 
-    termination_condition = TextMessageTermination("assistant")
+    # MaxMessageTermination counts Messages for e.g. TextMessage, ToolCallSummaryMessage
+    # It does not count events for e.g. ToolCallRequestEvent, ToolCallExecutionEvent
+    termination_condition = TextMessageTermination("assistant") | MaxMessageTermination(
+        max_messages=4
+    )
 
     team = RoundRobinGroupChat(
         [assistant],

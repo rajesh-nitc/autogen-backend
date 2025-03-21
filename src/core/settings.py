@@ -26,6 +26,14 @@ class AzureOpenAISettings(BaseSettings):
     )
 
 
+class LLMSettings(BaseSettings):
+    """LLM settings."""
+
+    BUFFER_SIZE: int = Field(
+        25, description="Take last n messages, where n is the buffer size"
+    )
+
+
 class WeatherSettings(BaseSettings):
     """Weather API settings."""
 
@@ -78,6 +86,7 @@ class Settings(BaseSettings):
     ENV: Literal["local", "dev", "npr", "prd"] = Field(
         "local", description="Application environment."
     )
+    LLM: LLMSettings = LLMSettings()
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize settings and apply environment-specific overrides."""

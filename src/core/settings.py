@@ -18,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-dev-02.openai.azure.com/",
+        "https://autogen-backend-dev.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(

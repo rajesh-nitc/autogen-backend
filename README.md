@@ -48,7 +48,7 @@ make run_docker
 URL:
 
 ```
-ws://localhost:8000/ws/chat/sessionidfoo
+ws://localhost:8000/ws/chat/session-foo
 ```
 
 Message:

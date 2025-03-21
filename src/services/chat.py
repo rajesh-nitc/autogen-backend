@@ -46,7 +46,7 @@ async def handle_chat(
                 await websocket.send_json(message.messages[-1].model_dump())
                 continue
             else:
-                # Update new run with message inc intermediary messages
+                # Update new run with message including intermediary message
                 await run_service.update_new_run_with_message(
                     new_run, message.model_dump()
                 )

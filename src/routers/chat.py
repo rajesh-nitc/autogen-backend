@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.connection import ws_manager
-from src.core.dependencies import get_db, get_user_id
+from src.core.dependencies import get_db_session, get_user_id
 from src.services.chat import handle_chat
 
 router: APIRouter = APIRouter()
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 async def get_chat_response(
     session_id: str,
     websocket: WebSocket,
-    db_session: AsyncSession = Depends(get_db),  # noqa: B008
+    db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
     user_id: str = Depends(get_user_id),  # noqa: B008
 ) -> None:
     """WebSocket endpoint for chat."""

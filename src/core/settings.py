@@ -51,7 +51,7 @@ class WeatherSettings(BaseSettings):
 class APIsSettings(BaseSettings):
     """APIs settings."""
 
-    WEATHER: WeatherSettings = WeatherSettings()  # type: ignore
+    WEATHER: WeatherSettings = WeatherSettings()
 
 
 class DatabaseSettings(BaseSettings):
@@ -81,8 +81,8 @@ class Settings(BaseSettings):
     """Application settings."""
 
     APIS: APIsSettings = APIsSettings()
-    AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()  # type: ignore
-    DATABASE: DatabaseSettings = DatabaseSettings()  # type: ignore
+    AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()
+    DATABASE: DatabaseSettings = DatabaseSettings()
     ENV: Literal["local", "dev", "npr", "prd"] = Field(
         "local", description="Application environment."
     )
@@ -101,4 +101,4 @@ class Settings(BaseSettings):
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-prd.openai.azure.com/"
 
 
-settings = Settings()  # type: ignore
+settings = Settings()

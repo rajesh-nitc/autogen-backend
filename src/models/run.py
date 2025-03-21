@@ -12,49 +12,46 @@ class Run(SQLModel, table=True):
 
     id: int | None = Field(
         default=None,
-        sa_column=Column(Integer, primary_key=True, autoincrement=True),  # type: ignore
+        description="Unique identifier for the run",
+        sa_column=Column(Integer, primary_key=True, autoincrement=True),
     )
     created_at: datetime = Field(
         default_factory=datetime.now,
-        sa_column=Column(DateTime(timezone=True), server_default=func.now()),  # type: ignore
+        description="Time when the run was created",
+        sa_column=Column(DateTime(timezone=True), server_default=func.now()),
     )
-    updated_at: datetime = Field(
-        default_factory=datetime.now,
-        sa_column=Column(DateTime(timezone=True), onupdate=func.now()),  # type: ignore
-    )
-
-    # Session ID sent by client
     session_id: str | None = Field(
         default=None,
-        sa_column=Column(String, nullable=True),  # type: ignore
+        description="Session ID sent by the client",
+        sa_column=Column(String, nullable=True),
     )
-
-    # User task
-    task: dict | None = Field(
-        default=None,
-        sa_column=Column(JSON, nullable=True),  # type: ignore
-    )
-
-    # Task result
-    task_result: dict | None = Field(
-        default=None,
-        sa_column=Column(JSON, nullable=True),  # type: ignore
-    )
-
-    # Team state
-    team_state: dict | None = Field(
-        default=None,
-        sa_column=Column(JSON, nullable=True),  # type: ignore
-    )
-
-    # Messages including intermediate messages
-    messages: list[dict] | None = Field(
-        default_factory=list,
-        sa_column=Column(JSON, nullable=True),  # type: ignore
-    )
-
-    # User ID
     user_id: str | None = Field(
         default=None,
-        sa_column=Column(String, nullable=True),  # type: ignore
+        description="User ID sent by the client",
+        sa_column=Column(String, nullable=True),
+    )
+    task: dict | None = Field(
+        default=None,
+        description="User task",
+        sa_column=Column(JSON, nullable=True),
+    )
+    task_result: dict | None = Field(
+        default=None,
+        description="User task result",
+        sa_column=Column(JSON, nullable=True),
+    )
+    team_state: dict | None = Field(
+        default=None,
+        description="Team state",
+        sa_column=Column(JSON, nullable=True),
+    )
+    messages: list[dict] | None = Field(
+        default_factory=list,
+        description="Messages exchanged during the run",
+        sa_column=Column(JSON, nullable=True),
+    )
+    error: dict | None = Field(
+        default=None,
+        description="Error message",
+        sa_column=Column(JSON, nullable=True),
     )

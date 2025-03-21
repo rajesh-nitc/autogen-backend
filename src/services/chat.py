@@ -20,8 +20,12 @@ async def handle_chat(
 ) -> None:
     """Handle chat messages."""
     run_service = RunService(db_session)
+
+    # Create new run with session ID, user ID and user request
     new_run = await run_service.create_new_run(session_id, user_id, request)
-    team_state = await run_service.get_team_state(user_id)
+
+    # Get team state from the previous run
+    team_state = await run_service.get_team_state_from_previous_run(user_id)
 
     try:
         team = await get_single_agent_team()
@@ -32,24 +36,36 @@ async def handle_chat(
             if isinstance(message, TaskResult):
                 if message.stop_reason is None:
                     continue
-                await run_service.update_run_with_result(
+
+                # Update new run with task result
+                await run_service.update_new_run_with_result(
                     new_run, message.messages[-1].model_dump()
                 )
+
+                # Send task result to client
                 await websocket.send_json(message.messages[-1].model_dump())
                 continue
             else:
-                await run_service.update_run_with_message(new_run, message.model_dump())
+                # Update new run with message inc intermediary messages
+                await run_service.update_new_run_with_message(
+                    new_run, message.model_dump()
+                )
 
-        # Save team state
         team_state = await team.save_state()
-        await run_service.update_run_with_team_state(new_run, team_state)  # type: ignore
+
+        # Update new run with team state
+        await run_service.update_new_run_with_team_state(new_run, team_state)
 
     except Exception as e:
-        # Send error message to client
         error_message = {
             "type": "error",
             "content": f"Error: {str(e)}",
             "source": "system",
         }
-        logger.exception("Error handling chat message")
+        logger.exception("Error handling chat message in services.chat")
+
+        # Update new run with error message
+        await run_service.update_new_run_with_error(new_run, error_message)
+
+        # Send error message to client
         await websocket.send_json(error_message)

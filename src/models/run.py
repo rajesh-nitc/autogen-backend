@@ -5,7 +5,7 @@ from sqlmodel import Column, Field, SQLModel
 
 
 class Run(SQLModel, table=True):
-    """Represents a single execution run i.e.
+    """Represents a single execution run.
 
     User sends a message -> handle_chat() processes the message -> Returns a response.
     """

@@ -2,7 +2,7 @@
 
 This API uses the Autogen framework.
 
-A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at every nth run, regardless of the session. 
+A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at the completion of every nth run, regardless of the session. 
 
 ## Features
 

@@ -39,7 +39,7 @@ class RunSettings(BaseSettings):
 
     RESET_STATE_AT_NTH_RUN: int = Field(
         8,
-        description="""Reset team state at every nth run.
+        description="""Reset team state at the completion of every nth run.
         If n=8, 9th run will start with team_state={}.""",
     )
 

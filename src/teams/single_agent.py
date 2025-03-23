@@ -19,7 +19,7 @@ async def get_single_agent_team() -> RoundRobinGroupChat:
         tools=[get_location_coordinates, get_weather_by_coordinates],
         system_message="You are a helpful assistant.",
         model_context=BufferedChatCompletionContext(
-            buffer_size=settings.LLM.BUFFER_SIZE
+            buffer_size=settings.LLM.LAST_N_MESSAGES_TO_LLM
         ),
     )
 

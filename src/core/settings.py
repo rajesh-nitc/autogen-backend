@@ -18,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-dev.openai.azure.com/",
+        "https://autogen-backend-dev-03.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
@@ -29,8 +29,17 @@ class AzureOpenAISettings(BaseSettings):
 class LLMSettings(BaseSettings):
     """LLM settings."""
 
-    BUFFER_SIZE: int = Field(
-        25, description="Take last n messages, where n is the buffer size"
+    LAST_N_MESSAGES_TO_LLM: int = Field(
+        25, description="Send last n messages to LLM for context."
+    )
+
+
+class RunSettings(BaseSettings):
+    """Run settings."""
+
+    RESET_STATE_AT_NTH_RUN: int = Field(
+        8,
+        description="Reset state at the (n+1)th run.",
     )
 
 
@@ -87,6 +96,7 @@ class Settings(BaseSettings):
         "local", description="Application environment."
     )
     LLM: LLMSettings = LLMSettings()
+    RUN: RunSettings = RunSettings()
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize settings and apply environment-specific overrides."""

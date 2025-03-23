@@ -1,6 +1,8 @@
 # autogen-backend
 
-This API uses Autogen framework
+This API uses the Autogen framework.
+
+A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at every (n+1)th run, regardless of the session. 
 
 ## Features
 

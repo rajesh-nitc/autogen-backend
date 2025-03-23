@@ -31,17 +31,17 @@ class Run(SQLModel, table=True):
         sa_column=Column(String, nullable=True),
     )
     task: dict | None = Field(
-        default=None,
+        default_factory=dict,
         description="User task",
         sa_column=Column(JSON, nullable=True),
     )
     task_result: dict | None = Field(
-        default=None,
+        default_factory=dict,
         description="User task result",
         sa_column=Column(JSON, nullable=True),
     )
     team_state: dict | None = Field(
-        default=None,
+        default_factory=dict,
         description="Team state",
         sa_column=Column(JSON, nullable=True),
     )
@@ -51,7 +51,7 @@ class Run(SQLModel, table=True):
         sa_column=Column(JSON, nullable=True),
     )
     error: dict | None = Field(
-        default=None,
+        default_factory=dict,
         description="Error message",
         sa_column=Column(JSON, nullable=True),
     )

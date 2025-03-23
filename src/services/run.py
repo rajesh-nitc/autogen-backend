@@ -1,7 +1,7 @@
 import logging
 
 from autogen_agentchat.messages import TextMessage
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes
 
@@ -18,16 +18,31 @@ class RunService:
         self.db_session = db_session
 
     async def create_new_run(
-        self, session_id: str, user_id: str, request: TextMessage
+        self,
+        session_id: str,
+        user_id: str,
+        request: TextMessage,
+        reset_state_at_nth_run: int,
     ) -> Run:
         """Create a new run."""
+        # Check the number of runs for the user
+        run_count = await self.get_run_count(user_id)
+
+        # Reset team_state if the threshold is reached
+        if run_count % reset_state_at_nth_run == 0:
+            team_state = {}
+        else:
+            # Retrieve team_state from the previous run
+            team_state = await self.get_team_state_from_previous_run(user_id)
+
         new_run = Run(
             session_id=session_id,
             task=request.model_dump(),
             messages=[],
             task_result={},
-            team_state={},
+            team_state=team_state,
             user_id=user_id,
+            error={},
         )
         self.db_session.add(new_run)
         await self.db_session.commit()
@@ -54,8 +69,7 @@ class RunService:
         result = await self.db_session.execute(
             select(Run.team_state)
             .where(Run.user_id == user_id)
-            .order_by(Run.id.desc())
-            .offset(1)
+            .order_by(Run.created_at.desc())
             .limit(1)
         )
         team_state = result.scalars().first() or {}
@@ -65,3 +79,10 @@ class RunService:
         """Update new run with error message."""
         run.error = error
         await self.db_session.commit()
+
+    async def get_run_count(self, user_id: str) -> int:
+        """Get the total number of runs for a user."""
+        result = await self.db_session.execute(
+            select(func.count()).select_from(Run).where(Run.user_id == user_id)
+        )
+        return result.scalar() or 0

@@ -5,6 +5,7 @@ from autogen_agentchat.messages import TextMessage
 from fastapi import WebSocket
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.core.settings import settings
 from src.services.run import RunService
 from src.teams.single_agent import get_single_agent_team
 
@@ -21,15 +22,14 @@ async def handle_chat(
     """Handle chat messages."""
     run_service = RunService(db_session)
 
-    # Create new run with session ID, user ID and user request
-    new_run = await run_service.create_new_run(session_id, user_id, request)
-
-    # Get team state from the previous run
-    team_state = await run_service.get_team_state_from_previous_run(user_id)
+    # Create new run with team state from the previous run
+    new_run = await run_service.create_new_run(
+        session_id, user_id, request, settings.RUN.RESET_STATE_AT_NTH_RUN
+    )
 
     try:
         team = await get_single_agent_team()
-        await team.load_state(team_state)
+        await team.load_state(new_run.team_state)
         stream = team.run_stream(task=request)
 
         async for message in stream:
@@ -51,10 +51,10 @@ async def handle_chat(
                     new_run, message.model_dump()
                 )
 
-        team_state = await team.save_state()
-
         # Update new run with team state
-        await run_service.update_new_run_with_team_state(new_run, team_state)
+        await run_service.update_new_run_with_team_state(
+            new_run, await team.save_state()
+        )
 
     except Exception as e:
         error_message = {

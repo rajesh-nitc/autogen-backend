@@ -5,6 +5,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes
 
+from src.core.settings import settings
 from src.models.run import Run
 
 logger = logging.getLogger(__name__)
@@ -16,20 +17,20 @@ class RunService:
     def __init__(self, db_session: AsyncSession):  # noqa: ANN204
         """Initialize the service."""
         self.db_session = db_session
+        self.reset_state_at_nth_run = settings.RUN.RESET_STATE_AT_NTH_RUN
 
     async def create_new_run(
         self,
         session_id: str,
         user_id: str,
         request: TextMessage,
-        reset_state_at_nth_run: int,
     ) -> Run:
         """Create a new run."""
         # Check the number of runs for the user
         run_count = await self.get_run_count(user_id)
 
         # Reset team_state if the threshold is reached
-        if run_count % reset_state_at_nth_run == 0:
+        if run_count % self.reset_state_at_nth_run == 0:
             team_state = {}
         else:
             # Retrieve team_state from the previous run

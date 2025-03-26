@@ -44,7 +44,7 @@ make run_embeddings
 # Run app
 make run_app
 
-# Run app in Docker
+# Run app in docker
 make run_app_docker
 
 ```
@@ -73,4 +73,4 @@ ws://localhost:8000/ws/chat/session-foo
 }
 ```
 
-**Note**: The data is sourced from ```azure-search-openai-demo```
+**Note**: The data is sourced from ```azure-search-openai-demo``` repo

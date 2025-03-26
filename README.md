@@ -68,7 +68,7 @@ ws://localhost:8000/ws/chat/session-foo
 **Generation with Vector Search**:
 ```
 {
-    "content": "how much is it to include family in health plan?",
+    "content": "how much will be deducted from paycheck for the health plan?",
     "source": "user"
 }
 ```

@@ -18,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-05.openai.azure.com/",
+        "https://autogen-backend-dev-05.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     LLM_MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
@@ -26,7 +26,7 @@ class AzureOpenAISettings(BaseSettings):
     )
     EMBEDDING_MODEL: Literal["text-embedding-ada-002", "text-embedding-3-small"] = (
         Field(
-            "text-embedding-3-small",
+            "text-embedding-ada-002",
             description="Embedding model for Azure OpenAI.",
         )
     )

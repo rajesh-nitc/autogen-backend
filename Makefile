@@ -2,7 +2,7 @@ SHELL := /bin/bash
 APP_NAME=autogen-backend
 DB_NAME=autogen-db
 
-.PHONY: help run_app run_db run_embeddings run_app_docker precommit
+.PHONY: help run_db run_app run_embeddings run_app_docker precommit
 
 help: ## Self-documenting help command
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'

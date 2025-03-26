@@ -18,11 +18,17 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-dev-03.openai.azure.com/",
+        "https://autogen-backend-05.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
-    MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
+    LLM_MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
         "gpt-4o-mini", description="LLM model."
+    )
+    EMBEDDING_MODEL: Literal["text-embedding-ada-002", "text-embedding-3-small"] = (
+        Field(
+            "text-embedding-3-small",
+            description="Embedding model for Azure OpenAI.",
+        )
     )
 
 
@@ -84,7 +90,7 @@ class DatabaseSettings(BaseSettings):
         host = self.POSTGRES_HOST
         port = self.POSTGRES_PORT
         db = self.POSTGRES_DB
-        return f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"
+        return f"postgresql+psycopg://{user}:{password}@{host}:{port}/{db}"
 
 
 class Settings(BaseSettings):
@@ -105,7 +111,9 @@ class Settings(BaseSettings):
 
         # Sample environment-specific overrides
         if self.ENV == "dev":
-            self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-dev.openai.azure.com/"
+            self.AZURE_OPENAI.ENDPOINT = (
+                "https://autogen-backend-dev-05.openai.azure.com/"
+            )
         if self.ENV == "npr":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-npr.openai.azure.com/"
         elif self.ENV == "prd":

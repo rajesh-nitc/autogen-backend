@@ -2,13 +2,13 @@ from sqlalchemy import create_engine
 
 from alembic import context
 from src.core.settings import settings  # Assuming settings holds your DB config
-from src.models.run import Run
+from models.run_model import Run
 
 # Target metadata from your models
 target_metadata = Run.metadata
 
 # Create a sync engine for migrations
-sync_engine = create_engine(settings.DATABASE.postgres_url.replace("+asyncpg", ""))
+sync_engine = create_engine(settings.DATABASE.postgres_url)
 
 
 def run_migrations_online():

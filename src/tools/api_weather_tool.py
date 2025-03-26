@@ -4,7 +4,7 @@ from src.core.settings import settings
 from src.utils.http_client import HTTPClientSingleton
 
 
-async def get_location_coordinates(
+async def get_location_coordinates_tool(
     location: Annotated[
         str,
         "Location e.g. Paris,FR; New York,NY,US. Use ISO 3166-1 alpha-2 country codes",
@@ -30,7 +30,7 @@ async def get_location_coordinates(
     return required_data
 
 
-async def get_weather_by_coordinates(
+async def get_weather_by_coordinates_tool(
     lat: Annotated[float, "Latitude"], lon: Annotated[float, "Longitude"]
 ) -> Annotated[Any, "Returns weather info"]:  # noqa: ANN401
     """Get weather information by coordinates."""

@@ -31,7 +31,8 @@ def upgrade() -> None:
     sa.Column('team_state', sa.JSON(), nullable=True),
     sa.Column('messages', sa.JSON(), nullable=True),
     sa.Column('error', sa.JSON(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    if_not_exists=True
     )
     # ### end Alembic commands ###
 

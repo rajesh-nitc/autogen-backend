@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes
 
 from src.core.settings import settings
-from src.models.run import Run
+from src.models.run_model import Run
 
 logger = logging.getLogger(__name__)
 
@@ -76,9 +76,10 @@ class RunService:
         team_state = result.scalars().first() or {}
         return team_state
 
-    async def update_new_run_with_error(self, run: Run, error: str) -> None:
+    async def update_new_run_with_error(self, run: Run, error: dict) -> None:
         """Update new run with error message."""
         run.error = error
+        self.db_session.add(run)
         await self.db_session.commit()
 
     async def get_run_count(self, user_id: str) -> int:

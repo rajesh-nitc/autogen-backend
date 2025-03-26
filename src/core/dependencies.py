@@ -1,9 +1,19 @@
+from contextlib import asynccontextmanager
+
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import sessionmaker
+
 from src.core.connection import db_manager
 
+async_session_factory = sessionmaker(
+    db_manager.engine, expire_on_commit=False, class_=AsyncSession
+)
 
+
+@asynccontextmanager
 async def get_db_session():  # noqa: ANN201
-    """Get the database session."""
-    async with db_manager.get_session() as session:
+    """Get a database session."""
+    async with async_session_factory() as session:
         yield session
 
 

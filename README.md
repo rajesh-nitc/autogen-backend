@@ -2,12 +2,13 @@
 
 This API uses the Autogen framework.
 
-A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at the completion of every nth run, regardless of the session. 
+A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at the completion of every nth run, regardless of the session.
+ 
 
 ## Features
 
-1. **Generation with APIs** (e.g., `get_location_coordinates`, `get_weather_by_coordinates`)
-2. **Generation with Vector Search** - TODO
+1. **Generation with APIs** (e.g., `get_location_coordinates_tool`, `get_weather_by_coordinates_tool`)
+2. **Generation with Vector Search** (e.g., `get_vector_search_tool`)
 
 ## Getting Started 🚀
 
@@ -35,13 +36,16 @@ echo 'export OPENWEATHER_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 
 ```
 # Run db
-make db
+make run_db
+
+# Run embeddings
+make run_embeddings
 
 # Run app
-make run
+make run_app
 
 # Run app in Docker
-make run_docker
+make run_app_docker
 
 ```
 
@@ -53,8 +57,7 @@ URL:
 ws://localhost:8000/ws/chat/session-foo
 ```
 
-Message:
-
+**Generation with APIs**:
 ```
 {
     "content": "how is the weather in bengaluru and mumbai?",
@@ -62,3 +65,12 @@ Message:
 }
 
 ```
+**Generation with Vector Search**:
+```
+{
+    "content": "how much is it to include family in health plan?",
+    "source": "user"
+}
+```
+
+**Note**: The data is sourced from ```azure-search-openai-demo```

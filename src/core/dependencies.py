@@ -1,13 +1,8 @@
 from contextlib import asynccontextmanager
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import sessionmaker
-
 from src.core.connection import db_manager
 
-async_session_factory = sessionmaker(
-    db_manager.engine, expire_on_commit=False, class_=AsyncSession
-)
+async_session_factory = db_manager.async_session_maker
 
 
 @asynccontextmanager

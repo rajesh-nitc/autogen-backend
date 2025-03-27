@@ -1,6 +1,4 @@
 import logging
-from collections.abc import AsyncGenerator
-from contextlib import asynccontextmanager
 
 from fastapi import WebSocket
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -28,12 +26,6 @@ class DBConnectionManager:
         self.async_session_maker = async_sessionmaker(
             self._engine, expire_on_commit=False, class_=AsyncSession
         )
-
-    @asynccontextmanager
-    async def get_session(self) -> AsyncGenerator[AsyncSession, None]:
-        """Provide a transactional scope around a series of operations."""
-        async with self.async_session_maker() as session:
-            yield session
 
     @property
     def engine(self):  # noqa: ANN201

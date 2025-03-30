@@ -2,12 +2,9 @@ SHELL := /bin/bash
 APP_NAME=autogen-backend
 DB_NAME=autogen-db
 
-.PHONY: help run_db run_embeddings run_app run_app_docker precommit
+.PHONY: run_db run_embeddings run_app run_app_docker precommit
 
-help: ## Self-documenting help command
-	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
-
-run_db: ## Run PostgreSQL in docker
+run_db: ## Run pgvector
 	docker network create autogen-network || true
 	docker run --name $(DB_NAME) \
 	--network=autogen-network \

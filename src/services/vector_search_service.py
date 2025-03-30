@@ -35,10 +35,8 @@ class PGVectorService:
     async def add_documents(self, documents: list[Document]) -> None:
         """Add documents to the vector store."""
         try:
-            await self.vector_store.aadd_documents(documents)  # Add documents
-            # await self.db_session.commit()  # Commit changes
+            await self.vector_store.aadd_documents(documents)
         except Exception:
-            # await self.db_session.rollback()  # Rollback on error
             logger.exception("Error adding documents")
             raise
 

@@ -68,7 +68,7 @@ ws://localhost:8000/ws/chat/session-foo
 **Generation with Vector Search**
 ```
 {
-    "content": "what is not covered in northwind standard plan?",
+    "content": "how much will be deducted from salary for the standard plan?",
     "source": "user"
 }
 ```

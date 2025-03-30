@@ -3,9 +3,10 @@ import logging
 
 from autogen_agentchat.messages import TextMessage
 from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.connection import ws_manager
-from src.core.dependencies import get_user_id
+from src.core.dependencies import get_db_session, get_user_id
 from src.services.chat_service import handle_chat
 
 router: APIRouter = APIRouter()
@@ -17,6 +18,7 @@ async def get_chat_response(
     session_id: str,
     websocket: WebSocket,
     user_id: str = Depends(get_user_id),  # noqa: B008
+    db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
 ) -> None:
     """WebSocket endpoint for chat."""
     await ws_manager.connect(session_id, websocket)
@@ -38,7 +40,7 @@ async def get_chat_response(
 
             try:
                 request = TextMessage.model_validate(data)
-                await handle_chat(session_id, websocket, request, user_id)
+                await handle_chat(session_id, websocket, request, user_id, db_session)
             except WebSocketDisconnect as e:
                 logger.info(f"WebSocket disconnected Inner: {str(e)}")
                 break

@@ -6,7 +6,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain_postgres import PGVector
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncEngine
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +17,10 @@ class PGVectorService:
     def __init__(
         self,
         embeddings: AzureOpenAIEmbeddings,
-        db_session: AsyncSession,
         engine: AsyncEngine,
         collection_name: str,
     ) -> None:
         """Initialize the service."""
-        self.db_session = db_session
         self.vector_store = PGVector(
             embeddings=embeddings,
             collection_name=collection_name,
@@ -38,9 +36,9 @@ class PGVectorService:
         """Add documents to the vector store."""
         try:
             await self.vector_store.aadd_documents(documents)  # Add documents
-            await self.db_session.commit()  # Commit changes
+            # await self.db_session.commit()  # Commit changes
         except Exception:
-            await self.db_session.rollback()  # Rollback on error
+            # await self.db_session.rollback()  # Rollback on error
             logger.exception("Error adding documents")
             raise
 

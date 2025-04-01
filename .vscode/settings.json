@@ -4,6 +4,5 @@
     ".venv": true,
     "**/__pycache__": true,
     ".ruff_cache": true,
-    ".pytest_cache": true
   }
 }

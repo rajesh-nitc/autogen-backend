@@ -4,7 +4,6 @@
 .gitignore
 .ruff_cache/
 .pre-commit-config.yaml
-.pytest_cache/
 .venv/
 .vscode/
 **/__pycache__/

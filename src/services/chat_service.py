@@ -6,7 +6,7 @@ from fastapi import WebSocket
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.services.run_service import RunService
-from src.teams.single_agent_team import get_single_agent_team
+from src.teams.selector_group_chat import get_team
 
 logger = logging.getLogger(__name__)
 
@@ -24,10 +24,11 @@ async def handle_chat(
 
         # Create new run
         new_run = await run_service.create_new_run(session_id, user_id, request)
-        team = await get_single_agent_team()
+        team = await get_team()
 
         # Load team state from previous run if available
-        await team.load_state(new_run.team_state)
+        if new_run.team_state:
+            await team.load_state(new_run.team_state)
 
         stream = team.run_stream(task=request)
         async for message in stream:

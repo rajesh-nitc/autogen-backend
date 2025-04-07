@@ -5,13 +5,13 @@ description = "autogen-backend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alembic>=1.15.1",
-    "autogen-agentchat>=0.4.8.2",
-    "autogen-ext[azure,openai]>=0.4.8.2",
-    "fastapi>=0.115.11",
+    "alembic>=1.15.2",
+    "autogen-agentchat>=0.5.1",
+    "autogen-ext[azure,openai]>=0.5.1",
+    "fastapi>=0.115.12",
     "httpx>=0.28.1",
-    "langchain-community>=0.3.20",
-    "langchain-openai>=0.3.10",
+    "langchain-community>=0.3.21",
+    "langchain-openai>=0.3.12",
     "langchain-postgres>=0.0.13",
     "psycopg[binary]>=3.2.6",
     "pydantic-settings>=2.8.1",
@@ -20,10 +20,12 @@ dependencies = [
     "sqlmodel>=0.0.24",
     "uvicorn[standard]>=0.34.0",
 ]
+
 [dependency-groups]
 dev = [
     "pre-commit>=4.1.0",
 ]
+
 [tool.ruff.lint]
 select = [
     "E",    # pycodestyle

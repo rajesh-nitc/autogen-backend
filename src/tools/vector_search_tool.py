@@ -1,9 +1,14 @@
 import logging
-from typing import Annotated
+from typing import TYPE_CHECKING, Annotated
+
+from langchain_core.documents import Document
 
 from src.core.connection import db_manager
 from src.services.vector_search_service import PGVectorService
 from src.utils.model_client import get_azure_openai_embeddings_model_client
+
+if TYPE_CHECKING:
+    from langchain_core.documents import Document
 
 logger = logging.getLogger(__name__)
 
@@ -11,10 +16,13 @@ logger = logging.getLogger(__name__)
 async def get_vector_search_tool(
     query: Annotated[
         str,
-        "Query on company policies, health plans and benefits.",
+        "Search Query.",
     ],
-) -> Annotated[str, "Returns context on company policies and benefits"]:
-    """Employees will ask about company policies, health plans and benefits."""
+) -> Annotated[
+    list[dict],
+    "Returns a list of documents with content and metadata (source, page_label)",
+]:
+    """Perform a vector search on the company policies, health plans and benefits."""
     embeddings = get_azure_openai_embeddings_model_client()
 
     vector_search_service = PGVectorService(
@@ -23,17 +31,19 @@ async def get_vector_search_tool(
         collection_name="company_policies",
     )
 
-    results = await vector_search_service.similarity_search(query, k=5)
+    results: list[Document] = await vector_search_service.similarity_search(query, k=5)
+
     if not results:
-        return "No relevant context found."
-
-    # Process and format the results
-    context = "\n\n".join(
-        [f"Result {i + 1}:\n{result.page_content}" for i, result in enumerate(results)]
-    )
-
-    # Log the results
-    for i, result in enumerate(results):
-        logger.info(f"===== Result {i + 1}: {result.page_content}")
-
-    return context
+        return []
+    output = []
+    for doc in results:
+        metadata = doc.metadata or {}
+        output.append(
+            {
+                "page_content": doc.page_content,
+                "source": metadata.get("source", "unknown"),
+                "page_label": metadata.get("page_label", "unknown"),
+            }
+        )
+    logger.info(f"Vector search output:========================= {output}")
+    return output

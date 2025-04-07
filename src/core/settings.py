@@ -18,7 +18,7 @@ class AzureOpenAISettings(BaseSettings):
         description="Latest GA API release.",
     )
     ENDPOINT: str = Field(
-        "https://autogen-backend-dev-06.openai.azure.com/",
+        "https://autogen-backend-dev-08.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
     LLM_MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
@@ -27,14 +27,6 @@ class AzureOpenAISettings(BaseSettings):
     EMBEDDING_MODEL: Literal["text-embedding-ada-002",] = Field(
         "text-embedding-ada-002",
         description="Embedding model for Azure OpenAI.",
-    )
-
-
-class LLMSettings(BaseSettings):
-    """LLM settings."""
-
-    LAST_N_MESSAGES_TO_LLM: int = Field(
-        25, description="Send last n messages to LLM for context."
     )
 
 
@@ -100,7 +92,6 @@ class Settings(BaseSettings):
     ENV: Literal["local", "dev", "npr", "prd"] = Field(
         "local", description="Application environment."
     )
-    LLM: LLMSettings = LLMSettings()
     RUN: RunSettings = RunSettings()
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
@@ -110,7 +101,7 @@ class Settings(BaseSettings):
         # Sample environment-specific overrides
         if self.ENV == "dev":
             self.AZURE_OPENAI.ENDPOINT = (
-                "https://autogen-backend-dev-06.openai.azure.com/"
+                "https://autogen-backend-dev-08.openai.azure.com/"
             )
         if self.ENV == "npr":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-npr.openai.azure.com/"

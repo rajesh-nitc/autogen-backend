@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 
 from alembic import context
-from src.core.settings import settings  # Assuming settings holds your DB config
-from models.run_model import Run
+from src.core.settings import settings
+from src.models.run_model import Run
 
 # Target metadata from your models
 target_metadata = Run.metadata

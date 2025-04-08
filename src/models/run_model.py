@@ -27,7 +27,7 @@ class Run(SQLModel, table=True):
     )
     user_id: str | None = Field(
         default=None,
-        description="User ID sent by the client",
+        description="User ID",
         sa_column=Column(String, nullable=True),
     )
     task: dict | None = Field(
@@ -47,7 +47,7 @@ class Run(SQLModel, table=True):
     )
     messages: list[dict] | None = Field(
         default_factory=list,
-        description="Messages exchanged during the run",
+        description="Messages generated",
         sa_column=Column(JSON, nullable=True),
     )
     error: dict | None = Field(

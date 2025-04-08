@@ -9,8 +9,8 @@ The data for vector search is taken from `azure-search-openai-demo` repo.
 
 ## Use Cases
 
-1. **Generation with APIs** (`get_location_coordinates_tool`, `get_weather_by_coordinates_tool`)
-2. **Generation with Vector Search** (`get_vector_search_tool`)
+1. **Generation with APIs** (`WeatherAgent`)
+2. **Generation with Vector Search** (`VectorSearchAgent`)
 
 ## Getting Started 🚀
 
@@ -39,7 +39,7 @@ make run_embeddings
 # Run app
 make run_app
 
-# Run app in docker
+# OR run app in docker
 make run_app_docker
 
 ```

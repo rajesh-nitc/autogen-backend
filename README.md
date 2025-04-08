@@ -2,9 +2,11 @@
 
 A backend API powered by [Autogen](https://github.com/microsoft/autogen).
 
-A new run is created for every user request sent via websocket and stored in the database. The team state is reset for the user at the completion of every nth run, regardless of the session. (temporary workaround for https://github.com/microsoft/autogen/issues/6227)
+A new run is created for every user request sent via websocket and stored in the database. 
 
-The data for vector search is taken from `azure-search-openai-demo` repo.
+The team state is reset for the user at the completion of every nth run as a temporary workaround for [this issue](https://github.com/microsoft/autogen/issues/6227).
+
+The data for vector search is taken from [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo).
  
 
 ## Use Cases
@@ -41,7 +43,6 @@ make run_app
 
 # OR run app in docker
 make run_app_docker
-
 ```
 
 ### Test with Postman
@@ -58,7 +59,9 @@ ws://localhost:8000/ws/chat/session-foo
 ```
 
 ## Examples
+
 ### 1. Generation with APIs (`WeatherAgent`)
+
 **Request**
 ```json
 {
@@ -67,6 +70,7 @@ ws://localhost:8000/ws/chat/session-foo
 }
 
 ```
+
 **Response**
 ```json
 {
@@ -80,7 +84,9 @@ ws://localhost:8000/ws/chat/session-foo
     "type": "TextMessage"
 }
 ```
+
 ### 2. Generation with Vector Search (`VectorSearchAgent`)
+
 **Request**
 ```json
 {

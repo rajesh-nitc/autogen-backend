@@ -7,14 +7,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.connection import ws_manager
 from src.core.dependencies import get_db_session, get_user_id
-from src.services.chat_service import handle_chat
+from src.services.chat_service import handle_task
 
 router: APIRouter = APIRouter()
 logger = logging.getLogger(__name__)
 
 
 @router.websocket("/chat/{session_id}")
-async def get_chat_response(
+async def get_task_result(
     session_id: str,
     websocket: WebSocket,
     user_id: str = Depends(get_user_id),  # noqa: B008
@@ -40,7 +40,7 @@ async def get_chat_response(
 
             try:
                 request = TextMessage.model_validate(data)
-                await handle_chat(session_id, websocket, request, user_id, db_session)
+                await handle_task(session_id, websocket, request, user_id, db_session)
             except WebSocketDisconnect as e:
                 logger.info(f"WebSocket disconnected Inner: {str(e)}")
                 break

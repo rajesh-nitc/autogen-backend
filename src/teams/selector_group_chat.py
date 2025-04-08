@@ -35,7 +35,7 @@ async def get_team() -> SelectorGroupChat:
                 }
             ]
         }
-        After the task is complete, end chat with "TERMINATE".
+        After the task is complete, respond with "TERMINATE".
         """,
         model_context=BufferedChatCompletionContext(buffer_size=25),
     )
@@ -50,7 +50,7 @@ async def get_team() -> SelectorGroupChat:
         ],
         system_message="""
         You are a helpful assistant. 
-        After the task is complete, end chat with "TERMINATE".
+        After the task is complete, respond with "TERMINATE".
         """,
         model_context=BufferedChatCompletionContext(buffer_size=25),
     )

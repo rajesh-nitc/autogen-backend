@@ -11,14 +11,14 @@ from src.teams.selector_group_chat import get_team
 logger = logging.getLogger(__name__)
 
 
-async def handle_chat(
+async def handle_task(
     session_id: str,
     websocket: WebSocket,
     request: TextMessage,
     user_id: str,
     db_session: AsyncSession,
 ) -> None:
-    """Handle chat messages."""
+    """Handle tasks from the client."""
     try:
         run_service = RunService(db_session)
 
@@ -61,7 +61,7 @@ async def handle_chat(
             "content": f"Error: {str(e)}",
             "source": "system",
         }
-        logger.exception("Error handling chat message.")
+        logger.exception("Error handling task.")
 
         # Update new run with error message
         await run_service.update_new_run_with_error(new_run, error_message)

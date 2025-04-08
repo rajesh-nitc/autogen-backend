@@ -2,11 +2,11 @@
 
 A backend API powered by [Autogen](https://github.com/microsoft/autogen).
 
-A new run is created for every user request sent via websocket and stored in the database. 
+A new run is created for every user request sent via websocket and stored in the database.
 
 The team state is reset for the user at the completion of every nth run as a temporary workaround for [this issue](https://github.com/microsoft/autogen/issues/6227).
 
-The data for vector search is taken from [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo).
+The data for vector search is sourced from [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo).
  
 
 ## Use Cases
@@ -26,7 +26,7 @@ echo 'export AZURE_OPENAI_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 echo 'export POSTGRES_PASSWORD=YOUR_PASSWORD_HERE' >> ~/.zshrc
 
 # OpenWeather
-echo 'export POSTGRES_PASSWORD=YOUR_PASSWORD_HERE' >> ~/.zshrc
+echo 'export OPENWEATHER_API_KEY=YOUR_API_KEY_HERE' >> ~/.zshrc
 ```
 
 ### Run
@@ -51,7 +51,7 @@ make run_app_docker
 # URL
 ws://localhost:8000/ws/chat/session-foo
 
-# Message format
+# Request format
 {
   "content": "your message here",
   "source": "user"

@@ -19,7 +19,7 @@ model_client = get_azure_openai_chat_completion_model_client()
 
 async def get_team() -> SelectorGroupChat:
     """Create a team of agents for the task."""
-    vector_search_agent = AssistantAgent(
+    benefits_agent = AssistantAgent(
         name="BenefitsAgent",
         description="Answers questions about employee benefits, including health plans and policies.",
         model_client=model_client,
@@ -64,7 +64,7 @@ async def get_team() -> SelectorGroupChat:
     termination_condition = TextMentionTermination(TERMINATION_TEXT) | MaxMessageTermination(max_messages=MAX_MESSAGES)
 
     team = SelectorGroupChat(
-        [vector_search_agent, weather_agent],
+        [benefits_agent, weather_agent],
         model_client=model_client,
         termination_condition=termination_condition,
         allow_repeated_speaker=True,

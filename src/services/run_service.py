@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class RunService:
-    """Service to interact with the DB Run model."""
+    """Service to manage the database run model."""
 
     def __init__(self, db_session: AsyncSession):  # noqa: ANN204
         """Initialize the service."""

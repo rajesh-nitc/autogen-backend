@@ -6,7 +6,7 @@ A new run is created for every user request sent via websocket and stored in the
 
 The team state is reset for the user at the completion of every nth run as a temporary workaround for [this issue](https://github.com/microsoft/autogen/issues/6227).
 
-The data for vector search is sourced from [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo).
+The data for vector store is sourced from [azure-search-openai-demo](https://github.com/Azure-Samples/azure-search-openai-demo).
  
 
 ## Use Cases

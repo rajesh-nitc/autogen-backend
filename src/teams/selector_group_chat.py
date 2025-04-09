@@ -3,7 +3,7 @@ from autogen_agentchat.conditions import MaxMessageTermination, TextMentionTermi
 from autogen_agentchat.teams import SelectorGroupChat
 from autogen_core.model_context import BufferedChatCompletionContext
 
-from src.tools.vector_search_tool import get_vector_search_tool
+from src.tools.vector_search_tool import search_benefits_tool
 from src.tools.weather_tool import (
     get_location_coordinates_tool,
     get_weather_by_coordinates_tool,
@@ -24,7 +24,7 @@ async def get_team() -> SelectorGroupChat:
         description="Answers questions about employee benefits, including health plans and policies.",
         model_client=model_client,
         tools=[
-            get_vector_search_tool,
+            search_benefits_tool,
         ],
         system_message=f"""
         You are a helpful assistant.

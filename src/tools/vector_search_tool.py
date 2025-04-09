@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Annotated
 from langchain_core.documents import Document
 
 from src.core.connection import db_manager
-from src.services.vector_search_service import PGVectorService
+from src.services.vector_store_service import PGVectorStoreService
 from src.utils.model_client import get_azure_openai_embeddings_model_client
 
 if TYPE_CHECKING:
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-async def get_vector_search_tool(
+async def search_benefits_tool(
     query: Annotated[
         str,
         "Search Query.",
@@ -24,17 +24,17 @@ async def get_vector_search_tool(
 ]:
     """Tool function for performing vector similarity search on internal documents.
 
-    Such documents include policies, health plans, and employee benefits.
+    Such documents include employee benefits, including health plans and policies.
     """
     embeddings = get_azure_openai_embeddings_model_client()
 
-    vector_search_service = PGVectorService(
+    vector_store_service = PGVectorStoreService(
         embeddings=embeddings,
         engine=db_manager.engine,
-        collection_name="company_policies",
+        collection_name="benefits",
     )
 
-    results: list[Document] = await vector_search_service.similarity_search(query, k=5)
+    results: list[Document] = await vector_store_service.similarity_search(query, k=5)
 
     if not results:
         return []
@@ -48,5 +48,5 @@ async def get_vector_search_tool(
                 "page_label": metadata.get("page_label", "unknown"),
             }
         )
-    logger.info(f"Vector search output:========================= {output}")
+    logger.info(f"Benefits documents: ========================= {output}")
     return output

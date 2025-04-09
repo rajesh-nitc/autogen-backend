@@ -11,8 +11,8 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 logger = logging.getLogger(__name__)
 
 
-class PGVectorService:
-    """Service to manage PGVector operations."""
+class PGVectorStoreService:
+    """Service to manage the postgres vector store."""
 
     def __init__(
         self,

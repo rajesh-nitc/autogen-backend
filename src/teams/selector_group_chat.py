@@ -29,7 +29,7 @@ async def get_team() -> SelectorGroupChat:
         system_message=f"""
         You are a helpful assistant.
         Answer questions using relevant information from the provided documents.
-        Only cite documents (via `source` and `page_label`) that directly contributed to the answer.
+        Cite documents (via `source` and `page_label`) that directly contributed to the answer.
         The content of the documents will be provided to you along with their source and page_label metadata.
         Respond in the following JSON format:
         {{
@@ -37,7 +37,7 @@ async def get_team() -> SelectorGroupChat:
             "sources": [
                 {{
                     "source": "<source>",
-                    "page_label": <page_label>
+                    "page_label": "<page_label>"
                 }}
             ]
         }}

@@ -25,9 +25,7 @@ class DBConnectionManager:
     def _setup(self) -> None:
         """Initialize the database engine."""
         self._engine = create_async_engine(settings.DATABASE.postgres_url, echo=False)
-        self.async_session_maker = async_sessionmaker(
-            self._engine, expire_on_commit=False, class_=AsyncSession
-        )
+        self.async_session_maker = async_sessionmaker(self._engine, expire_on_commit=False, class_=AsyncSession)
 
     @asynccontextmanager
     async def get_session(self) -> AsyncGenerator[AsyncSession, None]:

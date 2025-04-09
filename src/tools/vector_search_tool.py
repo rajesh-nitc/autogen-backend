@@ -22,7 +22,10 @@ async def get_vector_search_tool(
     list[dict],
     "Returns a list of documents with content and metadata (source, page_label)",
 ]:
-    """Perform a vector search on the company policies, health plans and benefits."""
+    """Tool function for performing vector similarity search on internal documents.
+
+    Such documents include policies, health plans, and employee benefits.
+    """
     embeddings = get_azure_openai_embeddings_model_client()
 
     vector_search_service = PGVectorService(

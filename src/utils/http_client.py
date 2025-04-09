@@ -15,9 +15,7 @@ class HTTPClientSingleton:
         :return: httpx.AsyncClient
         """
         if base_url not in HTTPClientSingleton._instances:
-            HTTPClientSingleton._instances[base_url] = httpx.AsyncClient(
-                base_url=base_url, timeout=timeout
-            )
+            HTTPClientSingleton._instances[base_url] = httpx.AsyncClient(base_url=base_url, timeout=timeout)
         return HTTPClientSingleton._instances[base_url]
 
     @staticmethod

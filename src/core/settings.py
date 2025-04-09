@@ -21,9 +21,7 @@ class AzureOpenAISettings(BaseSettings):
         "https://autogen-backend-dev-08.openai.azure.com/",
         description="Azure OpenAI endpoint.",
     )
-    LLM_MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field(
-        "gpt-4o-mini", description="LLM model."
-    )
+    LLM_MODEL: Literal["gpt-4", "gpt-4o", "gpt-4o-mini"] = Field("gpt-4o-mini", description="LLM model.")
     EMBEDDING_MODEL: Literal["text-embedding-ada-002",] = Field(
         "text-embedding-ada-002",
         description="Embedding model for Azure OpenAI.",
@@ -43,9 +41,7 @@ class RunSettings(BaseSettings):
 class WeatherSettings(BaseSettings):
     """Weather API settings."""
 
-    BASE_URL: str = Field(
-        "https://api.openweathermap.org", description="OpenWeather API base URL"
-    )
+    BASE_URL: str = Field("https://api.openweathermap.org", description="OpenWeather API base URL")
     API_KEY: SecretStr = Field(
         ...,  # Required field
         alias="OPENWEATHER_API_KEY",
@@ -89,9 +85,7 @@ class Settings(BaseSettings):
     APIS: APIsSettings = APIsSettings()
     AZURE_OPENAI: AzureOpenAISettings = AzureOpenAISettings()
     DATABASE: DatabaseSettings = DatabaseSettings()
-    ENV: Literal["local", "dev", "npr", "prd"] = Field(
-        "local", description="Application environment."
-    )
+    ENV: Literal["local", "dev", "npr", "prd"] = Field("local", description="Application environment.")
     RUN: RunSettings = RunSettings()
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
@@ -100,9 +94,7 @@ class Settings(BaseSettings):
 
         # Sample environment-specific overrides
         if self.ENV == "dev":
-            self.AZURE_OPENAI.ENDPOINT = (
-                "https://autogen-backend-dev-08.openai.azure.com/"
-            )
+            self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-dev-08.openai.azure.com/"
         if self.ENV == "npr":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-npr.openai.azure.com/"
         elif self.ENV == "prd":

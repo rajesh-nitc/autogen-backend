@@ -40,9 +40,7 @@ class PGVectorService:
             logger.exception("Error adding documents")
             raise
 
-    async def process_and_add_pdfs(
-        self, data_folder: str, chunk_size: int = 1000, chunk_overlap: int = 0
-    ) -> None:
+    async def process_and_add_pdfs(self, data_folder: str, chunk_size: int = 1000, chunk_overlap: int = 0) -> None:
         """Load and process PDFs, and add them to the vector store."""
         if not os.path.exists(data_folder):
             logger.exception(f"Data folder '{data_folder}' does not exist.")
@@ -61,25 +59,15 @@ class PGVectorService:
 
     def _load_pdf_files(self, data_folder: str) -> list[str]:
         """Load all PDF file paths from a given folder."""
-        return [
-            os.path.join(data_folder, f)
-            for f in os.listdir(data_folder)
-            if f.endswith(".pdf")
-        ]
+        return [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".pdf")]
 
-    def _process_pdf_files(
-        self, pdf_files: list[str], chunk_size: int, chunk_overlap: int
-    ) -> list[Document]:
+    def _process_pdf_files(self, pdf_files: list[str], chunk_size: int, chunk_overlap: int) -> list[Document]:
         """Process PDF files, splitting them into smaller chunks."""
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size, chunk_overlap=chunk_overlap
-        )
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         docs = []
         for pdf_file in pdf_files:
             logger.info(f"Processing {os.path.basename(pdf_file)}...")
-            loader = PyPDFLoader(
-                pdf_file, extract_images=True, images_inner_format="markdown-img"
-            )
+            loader = PyPDFLoader(pdf_file, extract_images=True, images_inner_format="markdown-img")
             documents = loader.load_and_split(text_splitter)
             docs.extend(documents)
         return docs

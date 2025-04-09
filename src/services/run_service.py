@@ -68,10 +68,7 @@ class RunService:
     async def get_team_state_from_previous_run(self, user_id: str) -> dict:
         """Get team state from the previous run."""
         result = await self.db_session.execute(
-            select(Run.team_state)
-            .where(Run.user_id == user_id)
-            .order_by(Run.created_at.desc())
-            .limit(1)
+            select(Run.team_state).where(Run.user_id == user_id).order_by(Run.created_at.desc()).limit(1)
         )
         team_state = result.scalars().first() or {}
         return team_state
@@ -84,7 +81,5 @@ class RunService:
 
     async def get_run_count(self, user_id: str) -> int:
         """Get the total number of runs for a user."""
-        result = await self.db_session.execute(
-            select(func.count()).select_from(Run).where(Run.user_id == user_id)
-        )
+        result = await self.db_session.execute(select(func.count()).select_from(Run).where(Run.user_id == user_id))
         return result.scalar() or 0

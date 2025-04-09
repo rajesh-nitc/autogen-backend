@@ -29,9 +29,7 @@ def get_azure_openai_embeddings_model_client() -> AzureOpenAIEmbeddings:
     )
 
 
-def get_pgvector_client(
-    embeddings: AzureOpenAIEmbeddings, collection_name: str, db_session: AsyncSession
-) -> PGVector:
+def get_pgvector_client(embeddings: AzureOpenAIEmbeddings, collection_name: str, db_session: AsyncSession) -> PGVector:
     """Initialize the PGVector vector store."""
     return PGVector(
         embeddings=embeddings,

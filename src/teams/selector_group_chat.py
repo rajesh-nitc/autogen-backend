@@ -3,65 +3,69 @@ from autogen_agentchat.conditions import MaxMessageTermination, TextMentionTermi
 from autogen_agentchat.teams import SelectorGroupChat
 from autogen_core.model_context import BufferedChatCompletionContext
 
-from src.tools.api_weather_tool import (
+from src.tools.vector_search_tool import get_vector_search_tool
+from src.tools.weather_tool import (
     get_location_coordinates_tool,
     get_weather_by_coordinates_tool,
 )
-from src.tools.vector_search_tool import get_vector_search_tool
 from src.utils.model_client import get_azure_openai_chat_completion_model_client
+
+TERMINATION_TEXT = "TERMINATE"
+BUFFER_SIZE = 25
+MAX_MESSAGES = 25
+
+model_client = get_azure_openai_chat_completion_model_client()
 
 
 async def get_team() -> SelectorGroupChat:
     """Create a team of agents for the task."""
     vector_search_agent = AssistantAgent(
-        name="VectorSearchAgent",
-        description="An agent for searching company policies, health plans, benefits.",
-        model_client=get_azure_openai_chat_completion_model_client(),
+        name="BenefitsAgent",
+        description="Answers questions about employee benefits, including health plans and policies.",
+        model_client=model_client,
         tools=[
             get_vector_search_tool,
         ],
-        system_message="""You are a helpful assistant.
-        Read all documents.
-        Identify relevant content for the question.
-        Answer the question using relevant information from the documents.
-        Mention source, page_label only for docs that contributed to the answer.
-        Return the answer in JSON format:
-        {
+        system_message=f"""
+        You are a helpful assistant.
+        Answer questions using relevant information from the provided documents.
+        Only cite documents (via `source` and `page_label`) that directly contributed to the answer.
+        The content of the documents will be provided to you along with their source and page_label metadata.
+        Respond in the following JSON format:
+        {{
             "answer": "<answer>",
             "sources": [
-                {
+                {{
                     "source": "<source>",
                     "page_label": <page_label>
-                }
+                }}
             ]
-        }
-        After the task is complete, respond with "TERMINATE".
+        }}
+        After completing the task, respond with {TERMINATION_TEXT}.
         """,
-        model_context=BufferedChatCompletionContext(buffer_size=25),
+        model_context=BufferedChatCompletionContext(buffer_size=BUFFER_SIZE),
     )
 
     weather_agent = AssistantAgent(
         name="WeatherAgent",
-        description="An agent for getting weather information.",
-        model_client=get_azure_openai_chat_completion_model_client(),
+        description="Retrieves weather information based on location.",
+        model_client=model_client,
         tools=[
             get_location_coordinates_tool,
             get_weather_by_coordinates_tool,
         ],
-        system_message="""
+        system_message=f"""
         You are a helpful assistant. 
-        After the task is complete, respond with "TERMINATE".
+        After completing the task, respond with {TERMINATION_TEXT}.
         """,
-        model_context=BufferedChatCompletionContext(buffer_size=25),
+        model_context=BufferedChatCompletionContext(buffer_size=BUFFER_SIZE),
     )
 
-    text_mention_termination = TextMentionTermination("TERMINATE")
-    max_messages_termination = MaxMessageTermination(max_messages=25)
-    termination_condition = text_mention_termination | max_messages_termination
+    termination_condition = TextMentionTermination(TERMINATION_TEXT) | MaxMessageTermination(max_messages=MAX_MESSAGES)
 
     team = SelectorGroupChat(
         [vector_search_agent, weather_agent],
-        model_client=get_azure_openai_chat_completion_model_client(),
+        model_client=model_client,
         termination_condition=termination_condition,
         allow_repeated_speaker=True,
     )

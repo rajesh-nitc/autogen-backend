@@ -12,7 +12,7 @@ The data for vector search is sourced from [azure-search-openai-demo](https://gi
 ## Use Cases
 
 1. **Generation with APIs** (`WeatherAgent`)
-2. **Generation with Vector Search** (`VectorSearchAgent`)
+2. **Generation with Vector Search** (`BenefitsAgent`)
 
 ## Getting Started 🚀
 
@@ -85,7 +85,7 @@ ws://localhost:8000/ws/chat/session-foo
 }
 ```
 
-### 2. Generation with Vector Search (`VectorSearchAgent`)
+### 2. Generation with Vector Search (`BenefitsAgent`)
 
 **Request**
 ```json
@@ -98,7 +98,7 @@ ws://localhost:8000/ws/chat/session-foo
 **Response**
 ```json
 {
-    "source": "VectorSearchAgent",
+    "source": "BenefitsAgent",
     "models_usage": {
         "prompt_tokens": 1107,
         "completion_tokens": 102

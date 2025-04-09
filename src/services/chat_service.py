@@ -37,23 +37,17 @@ async def handle_task(
                     continue
 
                 # Update new run with task result
-                await run_service.update_new_run_with_result(
-                    new_run, message.messages[-1].model_dump()
-                )
+                await run_service.update_new_run_with_result(new_run, message.messages[-1].model_dump())
 
                 # Send task result to client
                 await websocket.send_json(message.messages[-1].model_dump())
                 continue
             else:
                 # Update new run with message including intermediary message
-                await run_service.update_new_run_with_message(
-                    new_run, message.model_dump()
-                )
+                await run_service.update_new_run_with_message(new_run, message.model_dump())
 
         # Update new run with team state
-        await run_service.update_new_run_with_team_state(
-            new_run, await team.save_state()
-        )
+        await run_service.update_new_run_with_team_state(new_run, await team.save_state())
 
     except Exception as e:
         error_message = {

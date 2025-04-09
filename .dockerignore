@@ -10,5 +10,6 @@
 alembic.ini
 alembic/
 Dockerfile
+embeddings.py
 Makefile
 README.md

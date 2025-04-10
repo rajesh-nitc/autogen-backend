@@ -92,7 +92,7 @@ class Settings(BaseSettings):
         """Initialize settings and apply environment-specific overrides."""
         super().__init__(**kwargs)
 
-        # Sample environment-specific overrides
+        # Sample environment-specific overrides for defaults
         if self.ENV == "dev":
             self.AZURE_OPENAI.ENDPOINT = "https://autogen-backend-dev-08.openai.azure.com/"
         if self.ENV == "npr":

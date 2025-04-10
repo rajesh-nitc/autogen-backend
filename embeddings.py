@@ -8,8 +8,8 @@ from src.utils.model_client import get_azure_openai_embeddings_model_client
 logger = logging.getLogger(__name__)
 
 
-async def generate_embeddings() -> None:
-    """Generate embeddings for the documents."""
+async def create_embeddings() -> None:
+    """Create embeddings for the benefits documents."""
     data_folder = "data"
     embeddings = get_azure_openai_embeddings_model_client()
 
@@ -26,4 +26,4 @@ async def generate_embeddings() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(generate_embeddings())
+    asyncio.run(create_embeddings())

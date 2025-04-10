@@ -22,7 +22,7 @@ async def create_embeddings() -> None:
     try:
         await vector_store_service.process_and_add_pdfs(data_folder, chunk_size=1000)
     except Exception:
-        logger.exception("Error generating embeddings.")
+        logger.exception("Error creating embeddings.")
 
 
 if __name__ == "__main__":
